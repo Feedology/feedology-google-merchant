@@ -58,20 +58,13 @@ export class GoogleMerchantDataSourcesService extends BaseMerchantService {
     /**
      * Create a data source for a feed
      *
-     * @param feedId - Feed ID
      * @param market - Market code (ISO country code, e.g., "US", "CA")
      * @param accountId - Merchant Center account ID
      * @param accessToken - Plain access token string
      * @returns Created data source
      */
-    async createForFeed(feedId, market, accountId, accessToken) {
-        const displayName = `Feedology_feed_${feedId}`;
-        // List data sources and check if a data source with the same displayName exists
-        // const list = await this.list(accountId, accessToken);
-        // const existing = (list.dataSources || []).find(ds => (ds.displayName || '').toLowerCase() === displayName.toLowerCase());
-        // if (existing) return existing;
-        // Create a new data source
-        const payload = { displayName, primaryProductDataSource: { countries: [market] } };
+    async createForFeed(market, accountId, accessToken) {
+        const payload = { displayName: "Feedology Merchant API", primaryProductDataSource: { countries: [market] } };
         return await this.create(accountId, payload, accessToken);
     }
 }

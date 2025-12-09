@@ -45,13 +45,12 @@ export declare class GoogleMerchantDataSourcesService extends BaseMerchantServic
     /**
      * Create a data source for a feed
      *
-     * @param feedId - Feed ID
      * @param market - Market code (ISO country code, e.g., "US", "CA")
      * @param accountId - Merchant Center account ID
      * @param accessToken - Plain access token string
      * @returns Created data source
      */
-    createForFeed(feedId: string, market: string, accountId: string, accessToken: string): Promise<MerchantDataSource>;
+    createForFeed(market: string, accountId: string, accessToken: string): Promise<MerchantDataSource>;
 }
 export declare const googleMerchantDataSourcesService: GoogleMerchantDataSourcesService;
 //# sourceMappingURL=merchant-dataSources.service.d.ts.map
