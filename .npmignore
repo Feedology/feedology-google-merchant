@@ -1,0 +1,7 @@
+# Ignore everything
+*
+
+# Only include dist/ folder and README.md
+!dist/
+!dist/**
+!README.md

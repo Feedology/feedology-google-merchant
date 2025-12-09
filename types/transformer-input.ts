@@ -124,3 +124,5 @@ export interface GoogleMerchantProductTransformInput {
     feedProductVariant: TransformerFeedProductVariant;
 }
 
+
+

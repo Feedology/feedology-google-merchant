@@ -1,0 +1,10 @@
+# GitHub Package Registry configuration
+# Copy this file to .npmrc and update with your GitHub token
+
+# For @Feedology scope (GitHub org: Feedology)
+@Feedology:registry=https://npm.pkg.github.com
+
+# Authentication token (create at https://github.com/settings/tokens)
+# Token needs 'write:packages' permission
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+

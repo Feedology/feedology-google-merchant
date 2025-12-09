@@ -1,5 +1,5 @@
 /**
- * @feedology/google-merchant
+ * @Feedology/google-merchant
  * Google Merchant Center API client library
  */
 
