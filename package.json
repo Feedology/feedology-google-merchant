@@ -1,0 +1,42 @@
+{
+  "name": "@feedology/google-merchant",
+  "version": "0.0.1",
+  "description": "Google Merchant Center API client library for TypeScript",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "yarn build"
+  },
+  "keywords": [
+    "feedology",
+    "google",
+    "merchant",
+    "api",
+    "google-merchant",
+    "google-merchant-center",
+    "typescript"
+  ],
+  "author": "Nexary",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "google-auth-library": "^10.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.2",
+    "typescript": "^5.9.3"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
+}
