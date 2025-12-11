@@ -11,9 +11,6 @@ node_modules/
 .env.local
 .env.*.local
 
-# NPM config (contains tokens)
-.npmrc
-
 # Logs
 logs
 *.log
