@@ -1,5 +1,5 @@
 {
-  "name": "feedology-google-merchant",
+  "name": "@Feedology/google-merchant",
   "version": "0.0.1",
   "description": "Google Merchant Center API client library for TypeScript",
   "type": "module",
@@ -30,6 +30,9 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:Feedology/feedology-google-merchant.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
     "google-auth-library": "^10.5.0"
