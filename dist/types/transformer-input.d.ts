@@ -99,10 +99,24 @@ export interface TransformerProductVariant {
     price?: number;
     compare_at_price?: number | null;
 }
+export interface TransformerFeedProductVariantMetadataGoogleMerchantCenter {
+    /**
+     * Google Merchant Center offer ID
+     * The unique identifier for the product offer in Google Merchant Center
+     */
+    offer_id?: string;
+}
+export interface TransformerFeedProductVariantMetadata {
+    /**
+     * Google Merchant Center specific metadata
+     */
+    google_merchant_center?: TransformerFeedProductVariantMetadataGoogleMerchantCenter;
+}
 export interface TransformerFeedProductVariant {
     product_id: string;
     variant_id: string;
     field_mapping?: Record<string, unknown>;
+    metadata?: TransformerFeedProductVariantMetadata;
 }
 export interface GoogleMerchantProductTransformInput {
     shop: TransformerShop;

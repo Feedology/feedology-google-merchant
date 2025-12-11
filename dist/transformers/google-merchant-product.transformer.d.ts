@@ -71,13 +71,15 @@ export declare class GoogleMerchantProductTransformer {
     /**
      * Get product ID
      *
-     * DEFAULT: Uses feed.product_settings?.product_id
-     * OVERRIDE: If field_mapping.product_details.product_id exists, uses that value
-     *           Supports alias templates: {{product_id}}, {{variant_id}}
+     * Priority:
+     * 1) feedProductVariant.metadata.google_merchant_center.offer_id (if present) → return immediately
+     * 2) DEFAULT: feed.product_settings?.product_id → apply template
+     *    OVERRIDE: field_mapping.product_details?.product_id (if provided in mapping) → apply template
+     *    - Supports aliases: {{shop_id}}, {{product_id}}, {{variant_id}}
+     * 3) If none are set, return empty string
      *
      * @param feed - Feed entity containing product settings
-     * @param product - Product entity
-     * @param variant - Product variant entity
+     * @param feedProductVariant - Feed-product-variant with possible metadata overrides
      * @returns Product ID string, or empty string if not set
      */
     private getProductId;
