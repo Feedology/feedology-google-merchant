@@ -148,6 +148,8 @@ Transform your product data into Google Merchant Center format:
 ```typescript
 import {
   GoogleMerchantProductTransformer,
+  INVENTORY_TYPES,
+  INVENTORY_CUSTOM_SETTINGS,
   type GoogleMerchantProductTransformInput,
 } from '@Feedology/google-merchant';
 
@@ -169,7 +171,15 @@ const productInput = transformer.transform({
       product_title: '{{product_title}}',
     },
     inventory: {
-      type: 'in stock', // Optional: 'in stock', 'out of stock', 'preorder', 'backorder'
+      // Use Shopify inventory status
+      type: INVENTORY_TYPES.SHOPIFY_INVENTORY,
+      
+      // Or use custom setting
+      // type: INVENTORY_TYPES.CUSTOM,
+      // custom_setting: INVENTORY_CUSTOM_SETTINGS.IN_STOCK,
+      
+      // Or always out of stock
+      // type: INVENTORY_TYPES.OUT_OF_STOCK,
     },
   },
   product: {
@@ -219,8 +229,15 @@ const productInput = transformer.transform({
 - `GoogleProductStatus` - Product status type
 - `ProductInput` - Product input type for API
 - `TransformerShop`, `TransformerFeed`, `TransformerProduct`, etc. - Transformer input types
+- `InventoryType` - Inventory type ('shopify_inventory', 'out_of_stock', 'custom')
+- `InventoryCustomSetting` - Custom inventory setting ('in_stock', 'out_of_stock', 'preorder', 'backorder')
 
 **Configuration:**
 - `googleConfig` - Default configuration from environment variables
+
+**Constants:**
+- `INVENTORY_TYPES` - Available inventory types
+- `INVENTORY_CUSTOM_SETTINGS` - Available custom inventory settings
+- `BRAND_SOURCE_TYPES`, `PRICE_TYPES`, `PRODUCT_TYPE_FIELDS`, `PRODUCT_URL_SOURCE_TYPES`, `PRODUCT_IDENTIFIER_TYPES` - Other transformer constants
 
 See the TypeScript definitions for full API documentation.

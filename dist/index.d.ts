@@ -11,6 +11,6 @@ export { GoogleMerchantProductService, googleMerchantProductService, type Produc
 export { GoogleMerchantDataSourcesService, googleMerchantDataSourcesService, type MerchantDataSource, type ListDataSourcesResponse, } from './services/merchant-dataSources.service.js';
 export { getGoogleToken, isGoogleOAuthToken, type GetGoogleTokenResult, } from './utils/token.util.js';
 export { GoogleMerchantProductTransformer, googleMerchantProductTransformer, } from './transformers/google-merchant-product.transformer.js';
-export type { TransformerShop, TransformerFeed, TransformerProduct, TransformerProductVariant, TransformerFeedProductVariant, BrandSubmissionType, PriceType, ProductTypeField, ProductUrlSourceType, ProductIdentifierType, } from './types/transformer-input.js';
-export { BRAND_SOURCE_TYPES, PRICE_TYPES, PRODUCT_TYPE_FIELDS, PRODUCT_URL_SOURCE_TYPES, PRODUCT_IDENTIFIER_TYPES, } from './types/transformer-input.js';
+export type { TransformerShop, TransformerFeed, TransformerProduct, TransformerProductVariant, TransformerFeedProductVariant, BrandSubmissionType, PriceType, ProductTypeField, ProductUrlSourceType, ProductIdentifierType, InventoryType, InventoryCustomSetting, } from './types/transformer-input.js';
+export { BRAND_SOURCE_TYPES, PRICE_TYPES, PRODUCT_TYPE_FIELDS, PRODUCT_URL_SOURCE_TYPES, PRODUCT_IDENTIFIER_TYPES, INVENTORY_TYPES, INVENTORY_CUSTOM_SETTINGS, } from './types/transformer-input.js';
 //# sourceMappingURL=index.d.ts.map

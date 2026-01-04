@@ -28,4 +28,23 @@ export const PRODUCT_IDENTIFIER_TYPES = {
     GTIN: 'gtin',
     MPN: 'mpn',
 };
+/**
+ * Inventory Types
+ * How to handle inventory
+ */
+export const INVENTORY_TYPES = {
+    SHOPIFY_INVENTORY: 'shopify_inventory',
+    OUT_OF_STOCK: 'out_of_stock',
+    CUSTOM: 'custom',
+};
+/**
+ * Inventory Custom Setting Types
+ * Available options when inventory type is 'custom'
+ */
+export const INVENTORY_CUSTOM_SETTINGS = {
+    IN_STOCK: 'in_stock',
+    OUT_OF_STOCK: 'out_of_stock',
+    PREORDER: 'preorder',
+    BACKORDER: 'backorder',
+};
 //# sourceMappingURL=transformer-input.js.map

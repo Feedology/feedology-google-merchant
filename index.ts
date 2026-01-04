@@ -65,6 +65,8 @@ export type {
     ProductTypeField,
     ProductUrlSourceType,
     ProductIdentifierType,
+    InventoryType,
+    InventoryCustomSetting,
 } from './types/transformer-input.js';
 
 export {
@@ -73,5 +75,7 @@ export {
     PRODUCT_TYPE_FIELDS,
     PRODUCT_URL_SOURCE_TYPES,
     PRODUCT_IDENTIFIER_TYPES,
+    INVENTORY_TYPES,
+    INVENTORY_CUSTOM_SETTINGS,
 } from './types/transformer-input.js';
 

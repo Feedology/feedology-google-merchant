@@ -1,6 +1,6 @@
 {
   "name": "@Feedology/google-merchant",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Google Merchant Center API client library for TypeScript",
   "type": "module",
   "main": "./dist/index.js",

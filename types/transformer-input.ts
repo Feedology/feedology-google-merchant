@@ -40,6 +40,31 @@ export const PRODUCT_IDENTIFIER_TYPES = {
     MPN: 'mpn',
 } as const;
 
+/**
+ * Inventory Types
+ * How to handle inventory
+ */
+export const INVENTORY_TYPES = {
+    SHOPIFY_INVENTORY: 'shopify_inventory',
+    OUT_OF_STOCK: 'out_of_stock',
+    CUSTOM: 'custom',
+} as const;
+
+export type InventoryType = typeof INVENTORY_TYPES[keyof typeof INVENTORY_TYPES];
+
+/**
+ * Inventory Custom Setting Types
+ * Available options when inventory type is 'custom'
+ */
+export const INVENTORY_CUSTOM_SETTINGS = {
+    IN_STOCK: 'in_stock',
+    OUT_OF_STOCK: 'out_of_stock',
+    PREORDER: 'preorder',
+    BACKORDER: 'backorder',
+} as const;
+
+export type InventoryCustomSetting = typeof INVENTORY_CUSTOM_SETTINGS[keyof typeof INVENTORY_CUSTOM_SETTINGS];
+
 export interface TransformerShop {
     shop_name?: string | null;
     domain?: string | null;
@@ -75,7 +100,8 @@ export interface TransformerFeed {
         utm_campaign?: string;
     };
     inventory?: {
-        type?: string;
+        type?: InventoryType;
+        custom_setting?: InventoryCustomSetting;
     };
 }
 

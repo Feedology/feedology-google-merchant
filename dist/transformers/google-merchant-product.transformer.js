@@ -1,4 +1,4 @@
-import { BRAND_SOURCE_TYPES, PRICE_TYPES, PRODUCT_TYPE_FIELDS, PRODUCT_URL_SOURCE_TYPES, PRODUCT_IDENTIFIER_TYPES, } from '../types/transformer-input.js';
+import { BRAND_SOURCE_TYPES, PRICE_TYPES, PRODUCT_TYPE_FIELDS, PRODUCT_URL_SOURCE_TYPES, PRODUCT_IDENTIFIER_TYPES, INVENTORY_TYPES, } from '../types/transformer-input.js';
 /**
  * Simple encryption utility for UTM tracking
  */
@@ -922,16 +922,31 @@ export class GoogleMerchantProductTransformer {
     /**
      * Get product availability
      *
-     * DEFAULT: null (should be determined from inventory status)
+     * DEFAULT: Uses feed.inventory.type or feed.inventory.custom_setting
+     *   - If feed.inventory.type === 'custom', uses feed.inventory.custom_setting
+     *   - Otherwise, uses feed.inventory.type
      * OVERRIDE: If field_mapping.price_condition_availability.availability exists, uses that value
      *
      * Valid values: 'in stock', 'out of stock', 'preorder', 'backorder'
      *
+     * @param feed - Feed entity containing inventory settings
      * @param feedProductVariant - Feed product variant containing field_mapping
      * @returns Product availability string, or null if not set
      */
     getAvailability(feed, feedProductVariant) {
-        let availability = feed.inventory?.type ?? null;
+        let availability = null;
+        // DEFAULT: Get from feed.inventory
+        if (feed.inventory?.type) {
+            if (feed.inventory.type === INVENTORY_TYPES.CUSTOM && feed.inventory.custom_setting) {
+                // If type is 'custom', use custom_setting
+                availability = feed.inventory.custom_setting;
+            }
+            else {
+                // Otherwise use type directly
+                availability = feed.inventory.type;
+            }
+        }
+        // OVERRIDE: Check field_mapping
         if (feedProductVariant.field_mapping) {
             const fieldMapping = feedProductVariant.field_mapping;
             if (fieldMapping.price_condition_availability) {

@@ -18,5 +18,5 @@ export { GoogleMerchantDataSourcesService, googleMerchantDataSourcesService, } f
 export { getGoogleToken, isGoogleOAuthToken, } from './utils/token.util.js';
 // Transformer
 export { GoogleMerchantProductTransformer, googleMerchantProductTransformer, } from './transformers/google-merchant-product.transformer.js';
-export { BRAND_SOURCE_TYPES, PRICE_TYPES, PRODUCT_TYPE_FIELDS, PRODUCT_URL_SOURCE_TYPES, PRODUCT_IDENTIFIER_TYPES, } from './types/transformer-input.js';
+export { BRAND_SOURCE_TYPES, PRICE_TYPES, PRODUCT_TYPE_FIELDS, PRODUCT_URL_SOURCE_TYPES, PRODUCT_IDENTIFIER_TYPES, INVENTORY_TYPES, INVENTORY_CUSTOM_SETTINGS, } from './types/transformer-input.js';
 //# sourceMappingURL=index.js.map

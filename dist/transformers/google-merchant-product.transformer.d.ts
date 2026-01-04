@@ -310,11 +310,14 @@ export declare class GoogleMerchantProductTransformer {
     /**
      * Get product availability
      *
-     * DEFAULT: null (should be determined from inventory status)
+     * DEFAULT: Uses feed.inventory.type or feed.inventory.custom_setting
+     *   - If feed.inventory.type === 'custom', uses feed.inventory.custom_setting
+     *   - Otherwise, uses feed.inventory.type
      * OVERRIDE: If field_mapping.price_condition_availability.availability exists, uses that value
      *
      * Valid values: 'in stock', 'out of stock', 'preorder', 'backorder'
      *
+     * @param feed - Feed entity containing inventory settings
      * @param feedProductVariant - Feed product variant containing field_mapping
      * @returns Product availability string, or null if not set
      */
