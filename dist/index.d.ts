@@ -1,5 +1,5 @@
 /**
- * feedology-google-merchant
+ * @Feedology/google-merchant
  * Google Merchant Center API client library
  */
 export type { GoogleOAuthToken, GoogleOAuthScope, GoogleProductStatus } from './types/google.js';

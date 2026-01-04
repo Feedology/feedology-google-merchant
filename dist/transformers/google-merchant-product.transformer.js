@@ -158,7 +158,7 @@ export class GoogleMerchantProductTransformer {
             attributes.condition = condition;
         }
         // Availability
-        const availability = this.getAvailability(feedProductVariant);
+        const availability = this.getAvailability(feed, feedProductVariant);
         if (availability) {
             attributes.availability = availability;
         }
@@ -930,8 +930,8 @@ export class GoogleMerchantProductTransformer {
      * @param feedProductVariant - Feed product variant containing field_mapping
      * @returns Product availability string, or null if not set
      */
-    getAvailability(feedProductVariant) {
-        let availability = null;
+    getAvailability(feed, feedProductVariant) {
+        let availability = feed.inventory?.type ?? null;
         if (feedProductVariant.field_mapping) {
             const fieldMapping = feedProductVariant.field_mapping;
             if (fieldMapping.price_condition_availability) {

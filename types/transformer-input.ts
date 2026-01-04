@@ -74,6 +74,9 @@ export interface TransformerFeed {
         utm_medium?: string;
         utm_campaign?: string;
     };
+    inventory?: {
+        type?: string;
+    };
 }
 
 export interface TransformerProduct {

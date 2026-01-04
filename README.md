@@ -1,4 +1,4 @@
-# feedology-google-merchant
+# @Feedology/google-merchant
 
 Google Merchant Center API client library for TypeScript.
 
@@ -41,7 +41,7 @@ GOOGLE_MERCHANT_API_VERSION=v1beta  # optional, defaults to v1beta
 Or import and use the config directly:
 
 ```typescript
-import { googleConfig } from 'feedology-google-merchant';
+import { googleConfig } from '@Feedology/google-merchant';
 
 // Config is loaded from environment variables
 console.log(googleConfig.clientId);
@@ -55,7 +55,7 @@ console.log(googleConfig.scopes);
 The OAuth service uses configuration from environment variables:
 
 ```typescript
-import { GoogleOAuthService } from 'feedology-google-merchant';
+import { GoogleOAuthService } from '@Feedology/google-merchant';
 
 // Uses GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET from environment
 const oauthService = new GoogleOAuthService();
@@ -83,9 +83,7 @@ import {
   googleMerchantAccountService,
   googleMerchantProductService,
   googleMerchantDataSourcesService,
-} from 'feedology-google-merchant';
-} from 'feedology-google-merchant';
-} from 'feedology-google-merchant';
+} from '@Feedology/google-merchant';
 
 // List account issues
 const issues = await googleMerchantAccountService.issues(
@@ -132,7 +130,7 @@ const dataSources = await googleMerchantDataSourcesService.list(
 ### Token Utilities
 
 ```typescript
-import { getGoogleToken, GoogleOAuthService } from 'feedology-google-merchant';
+import { getGoogleToken, GoogleOAuthService } from '@Feedology/google-merchant';
 
 const oauthService = new GoogleOAuthService();
 
@@ -151,7 +149,7 @@ Transform your product data into Google Merchant Center format:
 import {
   GoogleMerchantProductTransformer,
   type GoogleMerchantProductTransformInput,
-} from 'feedology-google-merchant';
+} from '@Feedology/google-merchant';
 
 const transformer = new GoogleMerchantProductTransformer();
 
@@ -169,6 +167,9 @@ const productInput = transformer.transform({
     product_settings: {
       product_id: '{{shop_id}}_{{product_id}}_{{variant_id}}',
       product_title: '{{product_title}}',
+    },
+    inventory: {
+      type: 'in stock', // Optional: 'in stock', 'out of stock', 'preorder', 'backorder'
     },
   },
   product: {
