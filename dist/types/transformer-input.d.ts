@@ -117,6 +117,8 @@ export interface TransformerProduct {
 }
 export interface TransformerProductVariant {
     id: string;
+    inventory_quantity?: number;
+    inventory_policy?: string;
     title?: string;
     display_name?: string;
     sku?: string | null;

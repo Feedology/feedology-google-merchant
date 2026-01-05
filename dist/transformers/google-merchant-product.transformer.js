@@ -1,4 +1,4 @@
-import { BRAND_SOURCE_TYPES, PRICE_TYPES, PRODUCT_TYPE_FIELDS, PRODUCT_URL_SOURCE_TYPES, PRODUCT_IDENTIFIER_TYPES, INVENTORY_TYPES, } from '../types/transformer-input.js';
+import { BRAND_SOURCE_TYPES, PRICE_TYPES, PRODUCT_TYPE_FIELDS, PRODUCT_URL_SOURCE_TYPES, PRODUCT_IDENTIFIER_TYPES, INVENTORY_TYPES, INVENTORY_CUSTOM_SETTINGS, } from '../types/transformer-input.js';
 /**
  * Simple encryption utility for UTM tracking
  */
@@ -158,7 +158,7 @@ export class GoogleMerchantProductTransformer {
             attributes.condition = condition;
         }
         // Availability
-        const availability = this.getAvailability(feed, feedProductVariant);
+        const availability = this.getAvailability(feed, variant, feedProductVariant);
         if (availability) {
             attributes.availability = availability;
         }
@@ -933,17 +933,30 @@ export class GoogleMerchantProductTransformer {
      * @param feedProductVariant - Feed product variant containing field_mapping
      * @returns Product availability string, or null if not set
      */
-    getAvailability(feed, feedProductVariant) {
+    getAvailability(feed, variant, feedProductVariant) {
         let availability = null;
         // DEFAULT: Get from feed.inventory
         if (feed.inventory?.type) {
-            if (feed.inventory.type === INVENTORY_TYPES.CUSTOM && feed.inventory.custom_setting) {
-                // If type is 'custom', use custom_setting
-                availability = feed.inventory.custom_setting;
-            }
-            else {
-                // Otherwise use type directly
-                availability = feed.inventory.type;
+            switch (feed.inventory.type) {
+                case INVENTORY_TYPES.CUSTOM:
+                    if (feed.inventory.custom_setting) {
+                        availability = feed.inventory.custom_setting;
+                    }
+                    break;
+                case INVENTORY_TYPES.SHOPIFY_INVENTORY:
+                    if (variant.inventory_quantity && variant.inventory_quantity > 0 && variant.inventory_policy?.toLowerCase() !== 'deny') {
+                        availability = INVENTORY_CUSTOM_SETTINGS.IN_STOCK;
+                    }
+                    else {
+                        availability = INVENTORY_CUSTOM_SETTINGS.OUT_OF_STOCK;
+                    }
+                    break;
+                case INVENTORY_TYPES.OUT_OF_STOCK: // Continue selling when Out of stock = in stock
+                    availability = INVENTORY_CUSTOM_SETTINGS.IN_STOCK;
+                    break;
+                default:
+                    availability = null;
+                    break;
             }
         }
         // OVERRIDE: Check field_mapping

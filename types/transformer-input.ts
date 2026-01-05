@@ -130,6 +130,8 @@ export interface TransformerProduct {
 
 export interface TransformerProductVariant {
     id: string;
+    inventory_quantity?: number;
+    inventory_policy?: string; // 'deny' or 'continue'
     title?: string;
     display_name?: string;
     sku?: string | null;
