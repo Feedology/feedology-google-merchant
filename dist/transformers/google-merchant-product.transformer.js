@@ -935,7 +935,7 @@ export class GoogleMerchantProductTransformer {
      */
     getAvailability(feed, variant, feedProductVariant) {
         let availability = null;
-        // DEFAULT: Get from feed.inventory
+        // DEFAULT: Get from feed.inventory, https://nexary.atlassian.net/wiki/x/AQDn
         if (feed.inventory?.type) {
             switch (feed.inventory.type) {
                 case INVENTORY_TYPES.CUSTOM:
@@ -944,11 +944,16 @@ export class GoogleMerchantProductTransformer {
                     }
                     break;
                 case INVENTORY_TYPES.SHOPIFY_INVENTORY:
-                    if (variant.inventory_quantity && variant.inventory_quantity > 0 && variant.inventory_policy?.toLowerCase() !== 'deny') {
-                        availability = INVENTORY_CUSTOM_SETTINGS.IN_STOCK;
+                    if (variant.inventory_policy?.toLowerCase() === 'deny') {
+                        if (variant.inventory_quantity && variant.inventory_quantity > 0) {
+                            availability = INVENTORY_CUSTOM_SETTINGS.IN_STOCK;
+                        }
+                        else {
+                            availability = INVENTORY_CUSTOM_SETTINGS.OUT_OF_STOCK;
+                        }
                     }
                     else {
-                        availability = INVENTORY_CUSTOM_SETTINGS.OUT_OF_STOCK;
+                        availability = INVENTORY_CUSTOM_SETTINGS.IN_STOCK;
                     }
                     break;
                 case INVENTORY_TYPES.OUT_OF_STOCK: // Continue selling when Out of stock = in stock
