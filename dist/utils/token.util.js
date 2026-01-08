@@ -10,7 +10,10 @@ export function isGoogleOAuthToken(obj) {
 }
 function GoogleOAuthTokenHasExpired(token) {
     const now = Date.now();
-    return now >= token.expiry_date;
+    // Consider token expired if less than 15 minutes remaining
+    const fifteenMinutesMs = 15 * 60 * 1000; // 15 minutes in milliseconds
+    const timeUntilExpiry = token.expiry_date - now;
+    return timeUntilExpiry <= fifteenMinutesMs;
 }
 /**
  * Returns a valid GoogleOAuthToken. If input is an encrypted string, it is

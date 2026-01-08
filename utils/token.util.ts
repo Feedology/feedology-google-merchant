@@ -17,7 +17,10 @@ export function isGoogleOAuthToken(obj: unknown): obj is GoogleOAuthToken {
 
 function GoogleOAuthTokenHasExpired(token: GoogleOAuthToken): boolean {
     const now = Date.now();
-    return now >= token.expiry_date;
+    // Consider token expired if less than 15 minutes remaining
+    const fifteenMinutesMs = 15 * 60 * 1000; // 15 minutes in milliseconds
+    const timeUntilExpiry = token.expiry_date - now;
+    return timeUntilExpiry <= fifteenMinutesMs;
 }
 
 export interface GetGoogleTokenResult {

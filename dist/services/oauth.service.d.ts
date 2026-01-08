@@ -33,7 +33,7 @@ export declare class GoogleOAuthService {
     /**
      * Refresh access token using refresh token
      * @param refreshToken - Refresh token from previous OAuth flow
-     * @returns New OAuth tokens
+     * @returns New OAuth tokens (note: refresh_token may change, caller should persist it)
      */
     refreshAccessToken(refreshToken: string): Promise<GoogleOAuthToken>;
 }

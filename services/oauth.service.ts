@@ -86,7 +86,7 @@ export class GoogleOAuthService {
     /**
      * Refresh access token using refresh token
      * @param refreshToken - Refresh token from previous OAuth flow
-     * @returns New OAuth tokens
+     * @returns New OAuth tokens (note: refresh_token may change, caller should persist it)
      */
     async refreshAccessToken(refreshToken: string): Promise<GoogleOAuthToken> {
         this.oauth2Client.setCredentials({ refresh_token: refreshToken });
@@ -99,7 +99,9 @@ export class GoogleOAuthService {
 
         return {
             access_token: credentials.access_token,
-            refresh_token: refreshToken,
+            // Use new refresh_token if provided, otherwise keep the old one
+            // Google may rotate refresh tokens, so caller should always persist the returned value
+            refresh_token: credentials.refresh_token || refreshToken,
             token_type: credentials.token_type || 'Bearer',
             expiry_date: credentials.expiry_date as number,
             scope: credentials.scope || this.scopes.join(' '),
