@@ -55,12 +55,6 @@ export interface GoogleUserInfo {
      * Whether the email address is verified
      */
     email_verified: boolean;
-    
-    /**
-     * User's locale/language
-     * Example: "en", "vi", "vi-VN"
-     */
-    locale: string | null;
 }
 
 /**

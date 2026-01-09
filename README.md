@@ -209,7 +209,7 @@ if (result.refreshed) {
 
 ### User Info Service
 
-Get user profile information from Google OAuth2 tokens:
+Get user profile information from Google OAuth2 access tokens:
 
 ```typescript
 import { GoogleUserInfoService } from '@Feedology/google-merchant';
@@ -223,10 +223,6 @@ console.log(userInfo.name);       // John Doe
 console.log(userInfo.picture);    // https://lh3.googleusercontent.com/...
 console.log(userInfo.sub);        // Unique Google ID
 console.log(userInfo.email_verified); // true/false
-
-// Verify ID token (if you have an ID token instead of access token)
-const payload = await userInfoService.verifyIdToken(idToken);
-console.log(payload.sub, payload.email);
 ```
 
 **User Info Fields:**
@@ -237,7 +233,6 @@ console.log(payload.sub, payload.email);
 - `picture` - Profile picture URL
 - `email` - Email address
 - `email_verified` - Whether email is verified
-- `locale` - User's locale (e.g., "en", "vi", "vi-VN")
 
 ### Product Transformer
 

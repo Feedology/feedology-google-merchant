@@ -1,24 +1,25 @@
 /**
  * 👤 Google User Info Service
  *
- * Retrieves user information from Google OAuth2 access tokens
+ * Retrieves user information from Google OAuth2 access tokens or ID tokens
  * References:
+ * - https://developers.google.com/identity/sign-in/web/backend-auth
  * - https://www.googleapis.com/oauth2/v3/userinfo
- * - https://developers.google.com/identity/protocols/oauth2/web-implicit#obtaininguserprofileinformation
  */
 import { OAuth2Client } from 'google-auth-library';
+import googleConfig from '../config/google.config.js';
 /**
  * Google User Info Service
- * Fetches user profile information using OAuth2 access token
+ * Fetches user profile information using access token or verifies ID token
  */
 export class GoogleUserInfoService {
     oauth2Client;
     constructor() {
-        this.oauth2Client = new OAuth2Client();
+        this.oauth2Client = new OAuth2Client(googleConfig.clientId);
     }
     /**
-     * Get user information from Google OAuth2 token
-     * @param accessToken - Valid OAuth2 access token
+     * Get user information from Google token
+     * @param token - Google OAuth2 access token
      * @returns User profile information
      *
      * @throws Error if token is invalid or request fails
@@ -26,83 +27,39 @@ export class GoogleUserInfoService {
      * @example
      * ```typescript
      * const userInfoService = new GoogleUserInfoService();
+     *
+     * // Using access token
      * const userInfo = await userInfoService.getUserInfo(accessToken);
+     *
      * console.log(userInfo.email, userInfo.name, userInfo.picture);
      * ```
      */
     async getUserInfo(accessToken) {
         try {
-            // Set the access token on the OAuth2 client
-            this.oauth2Client.setCredentials({
-                access_token: accessToken,
+            const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
             });
-            // Fetch user info using getTokenInfo
-            const ticket = await this.oauth2Client.verifyIdToken({
-                idToken: accessToken,
-            });
-            const payload = ticket.getPayload();
-            if (!payload) {
-                throw new Error('Failed to get user info payload');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            // Return structured user info
+            const data = await response.json();
             return {
-                sub: payload.sub,
-                name: payload.name || null,
-                given_name: payload.given_name || null,
-                family_name: payload.family_name || null,
-                picture: payload.picture || null,
-                email: payload.email || null,
-                email_verified: payload.email_verified || false,
-                locale: payload.locale || null,
+                sub: data.sub || '',
+                name: data.name || null,
+                given_name: data.given_name || null,
+                family_name: data.family_name || null,
+                picture: data.picture || null,
+                email: data.email || null,
+                email_verified: data.email_verified || false,
             };
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error(`Failed to get user info: ${error.message}`);
+                throw new Error(`Failed to get user info from access token: ${error.message}`);
             }
-            throw new Error('Failed to get user info: Unknown error');
-        }
-    }
-    /**
-     * Verify and decode ID token
-     * @param idToken - Google ID token (JWT)
-     * @returns Decoded token payload
-     *
-     * @throws Error if token is invalid or verification fails
-     *
-     * @example
-     * ```typescript
-     * const userInfoService = new GoogleUserInfoService();
-     * const payload = await userInfoService.verifyIdToken(idToken);
-     * console.log(payload.sub, payload.email);
-     * ```
-     */
-    async verifyIdToken(idToken) {
-        try {
-            const ticket = await this.oauth2Client.verifyIdToken({
-                idToken: idToken,
-                audience: process.env.GOOGLE_CLIENT_ID,
-            });
-            const payload = ticket.getPayload();
-            if (!payload) {
-                throw new Error('Failed to decode ID token payload');
-            }
-            return {
-                sub: payload.sub,
-                name: payload.name || null,
-                given_name: payload.given_name || null,
-                family_name: payload.family_name || null,
-                picture: payload.picture || null,
-                email: payload.email || null,
-                email_verified: payload.email_verified || false,
-                locale: payload.locale || null,
-            };
-        }
-        catch (error) {
-            if (error instanceof Error) {
-                throw new Error(`Failed to verify ID token: ${error.message}`);
-            }
-            throw new Error('Failed to verify ID token: Unknown error');
+            throw new Error('Failed to get user info from access token: Unknown error');
         }
     }
 }
