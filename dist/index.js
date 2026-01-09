@@ -4,6 +4,8 @@
  */
 // OAuth Service
 export { GoogleOAuthService } from './services/oauth.service.js';
+// User Info Service
+export { GoogleUserInfoService } from './services/google-user.service.js';
 // Config
 export { googleConfig } from './config/google.config.js';
 // Base Service

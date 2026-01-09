@@ -2,8 +2,9 @@
  * @Feedology/google-merchant
  * Google Merchant Center API client library
  */
-export type { GoogleOAuthToken, GoogleOAuthScope, GoogleProductStatus } from './types/google.js';
+export type { GoogleOAuthToken, GoogleOAuthScope, GoogleProductStatus, GoogleUserInfo } from './types/google.js';
 export { GoogleOAuthService } from './services/oauth.service.js';
+export { GoogleUserInfoService } from './services/google-user.service.js';
 export { googleConfig, type GoogleConfig } from './config/google.config.js';
 export { BaseMerchantService } from './services/merchant.service.js';
 export { GoogleMerchantAccountService, googleMerchantAccountService, type AccountIssue, type ListIssuesResponse, } from './services/merchant-account.service.js';

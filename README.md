@@ -11,6 +11,7 @@ google-merchant/
 ├── services/
 │   ├── merchant.service.ts        # Base merchant service
 │   ├── oauth.service.ts          # OAuth2 authentication service
+│   ├── google-user.service.ts    # User info service
 │   ├── merchant-account.service.ts    # Account management
 │   ├── merchant-product.service.ts    # Product management
 │   └── merchant-dataSources.service.ts # Data sources management
@@ -206,6 +207,38 @@ if (result.refreshed) {
 }
 ```
 
+### User Info Service
+
+Get user profile information from Google OAuth2 tokens:
+
+```typescript
+import { GoogleUserInfoService } from '@Feedology/google-merchant';
+
+const userInfoService = new GoogleUserInfoService();
+
+// Get user info using access token
+const userInfo = await userInfoService.getUserInfo(accessToken);
+console.log(userInfo.email);      // user@example.com
+console.log(userInfo.name);       // John Doe
+console.log(userInfo.picture);    // https://lh3.googleusercontent.com/...
+console.log(userInfo.sub);        // Unique Google ID
+console.log(userInfo.email_verified); // true/false
+
+// Verify ID token (if you have an ID token instead of access token)
+const payload = await userInfoService.verifyIdToken(idToken);
+console.log(payload.sub, payload.email);
+```
+
+**User Info Fields:**
+- `sub` - Unique Google ID (required)
+- `name` - Full name
+- `given_name` - First name
+- `family_name` - Last name
+- `picture` - Profile picture URL
+- `email` - Email address
+- `email_verified` - Whether email is verified
+- `locale` - User's locale (e.g., "en", "vi", "vi-VN")
+
 ### Product Transformer
 
 Transform your product data into Google Merchant Center format. The transformer follows these mapping rules:
@@ -340,6 +373,7 @@ const productInput = transformer.transform({
 
 **Services:**
 - `GoogleOAuthService` - OAuth2 service for Google Merchant API
+- `GoogleUserInfoService` - User info service for retrieving user profiles
 - `BaseMerchantService` - Base service class for Merchant API operations
 - `GoogleMerchantAccountService` - Account management service
   - `googleMerchantAccountService` - Singleton instance
@@ -359,6 +393,7 @@ const productInput = transformer.transform({
 **Types:**
 - `GoogleOAuthToken` - OAuth token type
 - `GoogleOAuthScope` - OAuth scope type
+- `GoogleUserInfo` - User profile information type
 - `GoogleProductStatus` - Product status type
 - `GoogleConfig` - Configuration type
 - `ProductInput` - Product input type for API

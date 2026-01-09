@@ -15,6 +15,55 @@ export interface GoogleOAuthToken {
 export type GoogleOAuthScope = string;
 
 /**
+ * Google User Info
+ * User profile information from Google OAuth2
+ * 
+ * Retrieved from https://www.googleapis.com/oauth2/v3/userinfo
+ */
+export interface GoogleUserInfo {
+    /**
+     * Unique identifier for the user (Google ID)
+     */
+    sub: string;
+    
+    /**
+     * Full name of the user
+     */
+    name: string | null;
+    
+    /**
+     * Given (first) name of the user
+     */
+    given_name: string | null;
+    
+    /**
+     * Family (last) name of the user
+     */
+    family_name: string | null;
+    
+    /**
+     * URL to the user's profile picture
+     */
+    picture: string | null;
+    
+    /**
+     * Email address of the user
+     */
+    email: string | null;
+    
+    /**
+     * Whether the email address is verified
+     */
+    email_verified: boolean;
+    
+    /**
+     * User's locale/language
+     * Example: "en", "vi", "vi-VN"
+     */
+    locale: string | null;
+}
+
+/**
  * Google Merchant Center Product Status Types
  * 
  * Represents the structure of product_status JSON field from Google Merchant Center API

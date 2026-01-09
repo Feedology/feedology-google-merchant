@@ -4,10 +4,13 @@
  */
 
 // Types
-export type { GoogleOAuthToken, GoogleOAuthScope, GoogleProductStatus } from './types/google.js';
+export type { GoogleOAuthToken, GoogleOAuthScope, GoogleProductStatus, GoogleUserInfo } from './types/google.js';
 
 // OAuth Service
 export { GoogleOAuthService } from './services/oauth.service.js';
+
+// User Info Service
+export { GoogleUserInfoService } from './services/google-user.service.js';
 
 // Config
 export { googleConfig, type GoogleConfig } from './config/google.config.js';
