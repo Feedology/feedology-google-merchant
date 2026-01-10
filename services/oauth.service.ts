@@ -79,7 +79,6 @@ export class GoogleOAuthService {
             refresh_token: tokens.refresh_token,
             token_type: tokens.token_type || 'Bearer',
             expiry_date: tokens.expiry_date as number,
-            scope: tokens.scope || this.scopes.join(' '),
         };
     }
 
@@ -104,7 +103,6 @@ export class GoogleOAuthService {
             refresh_token: credentials.refresh_token || refreshToken,
             token_type: credentials.token_type || 'Bearer',
             expiry_date: credentials.expiry_date as number,
-            scope: credentials.scope || this.scopes.join(' '),
         };
     }
 }

@@ -387,7 +387,6 @@ const productInput = transformer.transform({
 
 **Types:**
 - `GoogleOAuthToken` - OAuth token type
-- `GoogleOAuthScope` - OAuth scope type
 - `GoogleUserInfo` - User profile information type
 - `GoogleProductStatus` - Product status type
 - `GoogleConfig` - Configuration type

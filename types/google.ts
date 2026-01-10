@@ -6,7 +6,6 @@ export interface GoogleOAuthToken {
     refresh_token: string;
     token_type: string; // e.g., "Bearer"
     expiry_date: number; // timestamp in milliseconds
-    scope: string; // space-delimited scopes
 }
 
 /**

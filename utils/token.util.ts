@@ -10,8 +10,7 @@ export function isGoogleOAuthToken(obj: unknown): obj is GoogleOAuthToken {
         typeof t.access_token === 'string' &&
         typeof t.refresh_token === 'string' &&
         typeof t.token_type === 'string' &&
-        typeof t.expiry_date === 'number' &&
-        typeof t.scope === 'string'
+        typeof t.expiry_date === 'number'
     );
 }
 
@@ -51,7 +50,6 @@ export async function getGoogleToken(
                 refresh_token: tokenObj.refresh_token,
                 token_type: tokenObj.token_type,
                 expiry_date: tokenObj.expiry_date,
-                scope: tokenObj.scope,
             },
             refreshed: false,
         };

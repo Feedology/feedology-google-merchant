@@ -5,8 +5,7 @@ export function isGoogleOAuthToken(obj) {
     return (typeof t.access_token === 'string' &&
         typeof t.refresh_token === 'string' &&
         typeof t.token_type === 'string' &&
-        typeof t.expiry_date === 'number' &&
-        typeof t.scope === 'string');
+        typeof t.expiry_date === 'number');
 }
 function GoogleOAuthTokenHasExpired(token) {
     const now = Date.now();
@@ -33,7 +32,6 @@ export async function getGoogleToken(tokenLike, oauthService) {
                 refresh_token: tokenObj.refresh_token,
                 token_type: tokenObj.token_type,
                 expiry_date: tokenObj.expiry_date,
-                scope: tokenObj.scope,
             },
             refreshed: false,
         };
