@@ -508,7 +508,9 @@ export class GoogleMerchantProductTransformer {
             }
         }
 
-        return String(priceAmountMicros * 1000000);
+        // Round to nearest integer to ensure TYPE_INT64 compatibility
+        const micros = Math.round(priceAmountMicros * 1000000);
+        return String(micros);
     }
 
     /**
@@ -847,9 +849,9 @@ export class GoogleMerchantProductTransformer {
         }
 
         if (priceType === PRICE_TYPES.PRICE) {
-            price = String((variant.price || 0) * 1000000);
+            price = String(Math.round((variant.price || 0) * 1000000));
         } else if (priceType === PRICE_TYPES.COMPARE_AT_PRICE) {
-            price = String((variant.compare_at_price || 0) * 1000000);
+            price = String(Math.round((variant.compare_at_price || 0) * 1000000));
         }
 
         return price;
@@ -902,10 +904,10 @@ export class GoogleMerchantProductTransformer {
         if (salePriceType) {
             switch (salePriceType) {
                 case PRICE_TYPES.PRICE:
-                    salePrice.amountMicros = String((variant.price || 0) * 1000000);
+                    salePrice.amountMicros = String(Math.round((variant.price || 0) * 1000000));
                     break;
                 case PRICE_TYPES.COMPARE_AT_PRICE:
-                    salePrice.amountMicros = String((variant.compare_at_price || 0) * 1000000);
+                    salePrice.amountMicros = String(Math.round((variant.compare_at_price || 0) * 1000000));
                     break;
             }
         }
